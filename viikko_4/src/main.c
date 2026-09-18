@@ -179,6 +179,8 @@ static void dispatcher_task(void *unused1, void *unused2, void *unused3)
 		k_free(rec_item);
 
 		printk("Dispatcher: %s\n", sequence);
+
+        timing_t seq_start_time = timing_counter_get(); //Aloitetaan koko sekvenssin ajan mittaus
         char *token = strtok(sequence, ",");
         while (token != NULL) {
             char color = token[0]; 
@@ -213,6 +215,22 @@ static void dispatcher_task(void *unused1, void *unused2, void *unused3)
             }
             k_mutex_unlock(&led_mutex);
             token = strtok(NULL, ",");
+
+            timing_t seq_end_time = timing_counter_get();
+            uint64_t seq_cycles = timing_cycles_get(&seq_start_time, &seq_end_time);
+            uint64_t seq_timing_us = timing_cycles_to_ns(seq_cycles) / 1000;
+
+            struct data_t *seq_debug = k_malloc(sizeof(struct data_t));  // Lähetetään koko sekvenssin kokonaisaika debug-puskuriin
+            if (seq_debug != NULL) {
+                seq_debug->time = seq_timing_us;
+                snprintf(seq_debug->msg, sizeof(seq_debug->msg), "Total Sequence Time");
+                
+                if (debug_enabled) {
+                    k_fifo_put(&debug_fifo, seq_debug);
+                } else {
+                    k_free(seq_debug);
+                }
+            }
         }
         printk("Sequence complete.\n");
 	}
@@ -288,7 +306,7 @@ void red_led_task(void *p1, void *p2, void *p3) {
             else {
                 k_free(debug_data); 
             }
-}
+        }
 
         k_mutex_unlock(&led_mutex);
         k_yield();

@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.5.1 (Python 3.13.4 on win32)" generated="2026-11-23T02:22:45.613840" rpa="false" schemaversion="5">
+<suite id="s1" name="Serial Test" source="C:\Users\OMISTAJA\SulJarOhj\repo\RTOS-ohjelmointi\viikko_6\src\serial_test.robot">
+<test id="s1-t1" name="Connect Serial" line="11">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Connecting to ${board}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.708956" elapsed="0.000571"/>
+</kw>
+<kw name="Add Port" owner="SerialLibrary">
+<arg>${com}</arg>
+<arg>baudrate=${baud}</arg>
+<arg>encoding=ascii</arg>
+<doc>Adds new port with specified locator.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.709808" elapsed="0.002338"/>
+</kw>
+<kw name="Port Should Be Open" owner="SerialLibrary">
+<arg>${com}</arg>
+<doc>Fails if specified port is closed.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.712463" elapsed="0.000265"/>
+</kw>
+<kw name="Reset Input Buffer" owner="SerialLibrary">
+<doc>Clears input buffer.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.712903" elapsed="0.000180"/>
+</kw>
+<kw name="Reset Output Buffer" owner="SerialLibrary">
+<doc>Clears outout buffer.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.713233" elapsed="0.004012"/>
+</kw>
+<status status="PASS" start="2026-11-23T02:22:45.707817" elapsed="0.009933"/>
+</test>
+<test id="s1-t2" name="Test Valid Time String" line="18">
+<kw name="Reset Input Buffer" owner="SerialLibrary">
+<doc>Clears input buffer.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.718945" elapsed="0.000184"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-11-23T02:22:45.719765" level="INFO">${seq} = 000120
+</msg>
+<var>${seq}</var>
+<arg>000120\n</arg>
+<doc>Returns the given values which can then be assigned to a variable.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.719376" elapsed="0.000429"/>
+</kw>
+<kw name="Write Data" owner="SerialLibrary">
+<arg>${seq}</arg>
+<arg>encoding=ascii</arg>
+<doc>Writes data into the port.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.720160" elapsed="0.001796"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Send sequence 000120</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.724668" elapsed="0.000470"/>
+</kw>
+<kw name="Read Until" owner="SerialLibrary">
+<msg time="2026-11-23T02:22:45.786438" level="INFO">${read} = 80X</msg>
+<var>${read}</var>
+<arg>terminator=58</arg>
+<arg>encoding=ascii</arg>
+<doc>Read until a termination sequence is found, size exceeded or timeout.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.725353" elapsed="0.061282"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Received ${read}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.787706" elapsed="0.001693"/>
+</kw>
+<kw name="Remove String" owner="String">
+<msg time="2026-11-23T02:22:45.791545" level="INFO">${clean_read} = 80</msg>
+<var>${clean_read}</var>
+<arg>${read}</arg>
+<arg>X</arg>
+<doc>Removes all `removables` from the given `string`.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.790377" elapsed="0.001303"/>
+</kw>
+<kw name="Strip String" owner="String">
+<msg time="2026-11-23T02:22:45.793472" level="INFO">${clean_read} = 80</msg>
+<var>${clean_read}</var>
+<arg>${clean_read}</arg>
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.792686" elapsed="0.000910"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${clean_read}</arg>
+<arg>80</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.794448" elapsed="0.001349"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Test passed: 000120 resulted in 80 seconds.</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.797154" elapsed="0.004983"/>
+</kw>
+<doc>Testataan oikeaa aikaa: 000120 -&gt; 1 min 20 s = 80 sekuntia</doc>
+<status status="PASS" start="2026-11-23T02:22:45.718453" elapsed="0.084425"/>
+</test>
+<test id="s1-t3" name="Test Invalid Time Seconds" line="35">
+<kw name="Reset Input Buffer" owner="SerialLibrary">
+<doc>Clears input buffer.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.805463" elapsed="0.000504"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-11-23T02:22:45.807592" level="INFO">${seq} = 001067
+</msg>
+<var>${seq}</var>
+<arg>001067\n</arg>
+<doc>Returns the given values which can then be assigned to a variable.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.806604" elapsed="0.001080"/>
+</kw>
+<kw name="Write Data" owner="SerialLibrary">
+<arg>${seq}</arg>
+<arg>encoding=ascii</arg>
+<doc>Writes data into the port.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.808219" elapsed="0.001121"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Send sequence 001067</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.810404" elapsed="0.000817"/>
+</kw>
+<kw name="Read Until" owner="SerialLibrary">
+<msg time="2026-11-23T02:22:45.877868" level="INFO">${read} = -2X</msg>
+<var>${read}</var>
+<arg>terminator=58</arg>
+<arg>encoding=ascii</arg>
+<doc>Read until a termination sequence is found, size exceeded or timeout.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.811613" elapsed="0.066439"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Received ${read}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.879148" elapsed="0.001658"/>
+</kw>
+<kw name="Remove String" owner="String">
+<msg time="2026-11-23T02:22:45.882890" level="INFO">${clean_read} = -2</msg>
+<var>${clean_read}</var>
+<arg>${read}</arg>
+<arg>X</arg>
+<doc>Removes all `removables` from the given `string`.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.881907" elapsed="0.001134"/>
+</kw>
+<kw name="Strip String" owner="String">
+<msg time="2026-11-23T02:22:45.884895" level="INFO">${clean_read} = -2</msg>
+<var>${clean_read}</var>
+<arg>${clean_read}</arg>
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.884100" elapsed="0.000939"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${clean_read}</arg>
+<arg>-2</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.885883" elapsed="0.001401"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Test passed: 001067 returned error code -2.</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.888582" elapsed="0.001503"/>
+</kw>
+<doc>Testataan virheellisiä sekunteja: 001067 -&gt; odotetaan -2</doc>
+<status status="PASS" start="2026-11-23T02:22:45.804106" elapsed="0.087279"/>
+</test>
+<test id="s1-t4" name="Test Invalid Time Length" line="51">
+<kw name="Reset Input Buffer" owner="SerialLibrary">
+<doc>Clears input buffer.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.899520" elapsed="0.000505"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-11-23T02:22:45.901740" level="INFO">${seq} = 12345
+</msg>
+<var>${seq}</var>
+<arg>12345\n</arg>
+<doc>Returns the given values which can then be assigned to a variable.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.900692" elapsed="0.001163"/>
+</kw>
+<kw name="Write Data" owner="SerialLibrary">
+<arg>${seq}</arg>
+<arg>encoding=ascii</arg>
+<doc>Writes data into the port.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.902596" elapsed="0.000962"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Send sequence 12345</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.904348" elapsed="0.001551"/>
+</kw>
+<kw name="Read Until" owner="SerialLibrary">
+<msg time="2026-11-23T02:22:45.958556" level="INFO">${read} = -1X</msg>
+<var>${read}</var>
+<arg>terminator=58</arg>
+<arg>encoding=ascii</arg>
+<doc>Read until a termination sequence is found, size exceeded or timeout.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.907394" elapsed="0.051300"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Received ${read}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.959579" elapsed="0.001372"/>
+</kw>
+<kw name="Remove String" owner="String">
+<msg time="2026-11-23T02:22:45.962602" level="INFO">${clean_read} = -1</msg>
+<var>${clean_read}</var>
+<arg>${read}</arg>
+<arg>X</arg>
+<doc>Removes all `removables` from the given `string`.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.961696" elapsed="0.001038"/>
+</kw>
+<kw name="Strip String" owner="String">
+<msg time="2026-11-23T02:22:45.964063" level="INFO">${clean_read} = -1</msg>
+<var>${clean_read}</var>
+<arg>${clean_read}</arg>
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.963470" elapsed="0.000689"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${clean_read}</arg>
+<arg>-1</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.964793" elapsed="0.001023"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Test passed: 12345 returned error code -1.</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.966864" elapsed="0.001225"/>
+</kw>
+<doc>Testataan liian lyhyttä merkkijonoa: 12345 -&gt; odotetaan pituusvirhettä -1</doc>
+<status status="PASS" start="2026-11-23T02:22:45.894355" elapsed="0.074693"/>
+</test>
+<test id="s1-t5" name="Disconnect Serial" line="67">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Disconnecting ${board}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.972450" elapsed="0.005852"/>
+</kw>
+<kw name="Delete Port" owner="SerialLibrary" type="TEARDOWN">
+<arg>${com}</arg>
+<doc>Deletes specified port.</doc>
+<status status="PASS" start="2026-11-23T02:22:45.979099" elapsed="0.002928"/>
+</kw>
+<status status="PASS" start="2026-11-23T02:22:45.970847" elapsed="0.011574"/>
+</test>
+<status status="PASS" start="2026-11-23T02:22:45.615431" elapsed="0.368801"/>
+</suite>
+<statistics>
+<total>
+<stat pass="5" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Serial Test" id="s1" pass="5" fail="0" skip="0">Serial Test</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
